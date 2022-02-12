@@ -1,9 +1,22 @@
+// Jackson Wildman
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-char **addToUsed(char **usedWords, char* inputWord, int usedSize) //add word to selected input file. kind of dirty way of doing it as of now
+/**
+ * @brief add word to selected input file. 
+ * Takes in the array of previously used words, the 
+ * user inputed word, and the size of the user size array.
+ * Returns a pointer to the new array of strings.
+ * kind of dirty way of doing it as of now
+ * 
+ * @param usedWords 
+ * @param inputWord 
+ * @param usedSize 
+ * @return char** 
+ */
+char **addToUsed(char **usedWords, char* inputWord, int usedSize) 
 {
     char **tempUsed = malloc(usedSize + sizeof(char));
 
@@ -41,33 +54,4 @@ char **addToUsed(char **usedWords, char* inputWord, int usedSize) //add word to 
     }
     
     return tempUsed;
-}
-
-int main() //test code
-{
-    char **usedWords = malloc(3 * 20 * sizeof(char));
-    printf("SIZE %i\n", (sizeof(usedWords) / sizeof(*usedWords)));
-
-    for (int i = 0; i < 3; i++)
-    {
-        *(usedWords + i) = malloc(20 * sizeof(char));
-    }
-
-    *usedWords = "yes";
-    *(usedWords + 1) = "no";
-    *(usedWords + 2) = "maybe";
-
-    for (int i = 0; i < 4; i++)
-    {
-        printf("%s", *(usedWords + i));
-    }
-
-    usedWords = addToUsed(usedWords, "why", 3);
-
-    printf("%i", (sizeof(usedWords) / sizeof(*usedWords)));
-
-    for (int i = 0; i < 4; i++)
-    {
-        printf("%s", *(usedWords + i));
-    }
 }

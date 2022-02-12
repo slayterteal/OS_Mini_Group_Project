@@ -1,10 +1,18 @@
-
+// Jackson Wildman
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-int isKnown(int inputNumber, char* inputWord) //add word to selected input file. super dirty way of doing it as of now
+/**
+ * @brief add word to selected input file. 
+ * super dirty way of doing it as of now 
+ * 
+ * @param inputNumber 
+ * @param inputWord 
+ * @return int 
+ */
+int isKnown(int inputNumber, char *inputWord) 
 {
     FILE *inputFile;
     int tempNum = inputNumber;
@@ -65,10 +73,4 @@ int isKnown(int inputNumber, char* inputWord) //add word to selected input file.
 
     fclose(inputFile);
     return 0;
-}
-
-int main() //test code
-{
-    int knownQuery = isKnown(1, "yes");
-    printf("%i", knownQuery);
 }

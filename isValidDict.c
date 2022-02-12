@@ -1,9 +1,18 @@
+// Jackson Wildman
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-int isValidDict(char *inputWord) //check dictionary.txt to confirm validity
+/**
+ * @brief checks the dictionary.txt to conform if
+ * the inputed word is valid (in the dictionary).
+ * Returns a True/False, 1/0
+ * 
+ * @param inputWord 
+ * @return int 
+ */
+int isValidDict(char *inputWord)
 {
     FILE *dict;
 
@@ -24,8 +33,3 @@ int isValidDict(char *inputWord) //check dictionary.txt to confirm validity
     return 0;
 }
 
-int main() //test code
-{
-    int isValid = isValidDict("test");
-    printf("%i", isValid);
-}

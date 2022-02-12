@@ -1,9 +1,18 @@
+// Jackson Wildman
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-char *generateWord(int inputFileNumber) //use this method to make a computer player grab a word from chosen input_x.txt. returns a random word from the chosen text file
+/**
+ * @brief //use this method to make a computer player 
+ * grab a word from chosen input_x.txt. 
+ * returns a random word from the chosen text file
+ * 
+ * @param inputFileNumber 
+ * @return char* 
+ */
+char *generateWord(int inputFileNumber) 
 {
     FILE *inputFile;
     int tempNum = inputFileNumber;
@@ -87,10 +96,4 @@ char *generateWord(int inputFileNumber) //use this method to make a computer pla
     int wordIndex = rand() % wordCount;
 
     return *(inputFileWords + wordIndex);
-}
-
-int main()
-{
-    char *test = generateWord(1);
-    printf("%s\n", test);
 }

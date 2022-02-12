@@ -1,9 +1,17 @@
+// Jackson Wildman
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-void addToInput(int inputNumber, char* inputWord) //add word to selected input file. super dirty way of doing it as of now
+/**
+ * @brief adds word to selected input file. 
+ * super dirty way of doing it as of now
+ * 
+ * @param inputNumber 
+ * @param inputWord 
+ */
+void addToInput(int inputNumber, char* inputWord) 
 {
     FILE *inputFile;
     int tempNum = inputNumber;
@@ -45,7 +53,7 @@ void addToInput(int inputNumber, char* inputWord) //add word to selected input f
     strcat(fileName, fileNum);
     strcat(fileName, ".txt");
 
-    if (inputFile = fopen(fileName, "r")) //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
+    if ((inputFile = fopen(fileName, "r"))) //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
     {
         inputFile = fopen(fileName, "a");
     }
@@ -57,9 +65,4 @@ void addToInput(int inputNumber, char* inputWord) //add word to selected input f
     fprintf(inputFile, "%s\n", inputWord);
 
     fclose(inputFile);
-}
-
-int main() //test code
-{
-    addToInput(1, "yes");
 }
