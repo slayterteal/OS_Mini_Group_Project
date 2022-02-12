@@ -3,17 +3,20 @@
  * @author Slayter Teal (slayter.teal@okstate.edu)
  * @brief A header file containing the various Game 
  * related functions.
- * @version 0.1
- * @date 2022-02-09
- * 
- * @copyright Copyright (c) 2022
  * 
  */
+#ifndef GAMELOGIC_H_
+#define GAMELOGIC_H_
 
 #include "./Player.h"
 
 int calculateScore(int validBit, char *word);
+int alternateTurn(int *turnTracker);
+char *buildNextPlayerMsg(struct Player *player, 
+                        char **usedWords,
+                        int *usedLength, 
+                        char *randAlphabet, 
+                        char *inputWord);
 
-// Temp Functions ============================
-int checkValidWordTrue(char *word);
-int checkValidWordFalse(char *word);
+
+#endif

@@ -8,6 +8,7 @@
  * 
  */
 
+#include "WordServices.h"
 #include <stdio.h> //remove
 #include <string.h>
 
