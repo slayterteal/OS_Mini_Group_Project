@@ -15,9 +15,6 @@ in successive order.
 #include <string.h>
 #include <stdlib.h>
 
-//TODO REMOVE ============
-#include <stdio.h>
-
 char *buildNextPlayerMsg(struct Player *player, 
                         char **usedWords,
                         int *usedLength,
