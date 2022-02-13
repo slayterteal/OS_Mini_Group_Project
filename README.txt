@@ -3,4 +3,4 @@ Group Members:
 - Slayter Teal
 - Jackson Wildman
 
-Compilation: gcc -Wall ./*.c -o a.out
+Compilation: gcc -Wall ./*.c -o a.out -ldt
