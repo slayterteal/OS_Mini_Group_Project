@@ -1,0 +1,6 @@
+First Name  Last Name    Country  Score   W/L   # Words Found   # Words Added to Dict
+     JohnA     SmithA       USAA     34  WinA              10                      12
+     JohnB     SmithB       USAB     33  WinB               9                      11
+     JohnC     SmithC       USAC     35  WinC              11                      13
+     JohnD     SmithD       USAD     36  WinD              12                      14
+      John      Smith        USA     35   Win              10                      12
