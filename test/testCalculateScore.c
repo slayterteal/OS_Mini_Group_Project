@@ -1,4 +1,8 @@
-// Slayter Teal
+/**
+ * @file testCalculateScore.c
+ * @author slayter teal (slayter.teal@okstate.edu)
+ * 
+ */
 
 #include "../GameLogic.h"
 #include <stdio.h>

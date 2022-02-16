@@ -11,7 +11,8 @@ struct Player{
     char *firstname;
     char *lastname;
     char *country;
-    int score;
+    int opponent_score;
+    int player_score;
     int number_of_words_found;
     int number_of_words_added;
 };

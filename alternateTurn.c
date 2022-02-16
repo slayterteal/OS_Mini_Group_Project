@@ -1,4 +1,8 @@
-// Slayter Teal
+/**
+ * @file alternateTurn.c
+ * @author Slayter Teal (slayter.teal@okstate.edu)
+ * 
+ */
 
 #include "GameLogic.h"
 
