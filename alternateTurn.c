@@ -1,5 +1,7 @@
 // Slayter Teal
 
+#include "GameLogic.h"
+
 /**
  * @brief A very simple method that flips the turn
  * tracker to denote a change of turns.
@@ -8,5 +10,5 @@
  * @return int 
  */
 int alternateTurn(int *turnTracker){
-    return !turnTracker;
+    return !*turnTracker;
 }
