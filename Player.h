@@ -1,6 +1,8 @@
-/*
-Player struct, keeps track of player data throughout the game.
-*/
+/**
+ * @file Player.h
+ * @author slayter teal (slayter.teal@okstate.edu)
+ * 
+ */
 
 #ifndef PLAYER_H_
 #define PLAYER_H_

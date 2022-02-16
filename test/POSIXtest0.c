@@ -36,9 +36,9 @@ int main(){
 
     // check if creation was successful
     if (queue_send == -1){
+        printf("error in queue creation! \n");
         exit(1);
     }
-    exit(1);
 
     unsigned int priority = 0;
     char *message = "World";

@@ -6,7 +6,6 @@
 #include <string.h>
 
 int main(){
-    printf("It compiles! \n");
     struct Player *test_player = malloc(sizeof(struct Player));
     char **usedWords = malloc(2*sizeof(char*));
     for (int i = 0; i < 2; i++){
@@ -19,7 +18,7 @@ int main(){
     char *inputWord = "Fuzz";
 
     int usedLength = 2;
-    test_player->score = 4;
+    test_player->player_score = 4;
     char *test_msg = buildNextPlayerMsg(
                         test_player, 
                         usedWords,
