@@ -1,4 +1,8 @@
-// Slayter Teal
+/**
+ * @file buildNextPlayerMsg.c
+ * @author Slayter Teal (slayter.teal@okstate.edu)
+ * 
+ */
 
 /*
 • the set of random alphabets
@@ -31,7 +35,7 @@ char *buildNextPlayerMsg(struct Player *player,
 
     strcat(nextPlayerMsg, randAlphabet);
     strcat(nextPlayerMsg, "\n");
-    char score = player->score + '0';
+    char score = player->player_score + '0';
     strcat(nextPlayerMsg, &score); 
     strcat(nextPlayerMsg, "\n");
     for(int i = 0; i < *usedLength; i++){

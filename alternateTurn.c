@@ -1,4 +1,10 @@
-// Slayter Teal
+/**
+ * @file alternateTurn.c
+ * @author Slayter Teal (slayter.teal@okstate.edu)
+ * 
+ */
+
+#include "GameLogic.h"
 
 /**
  * @brief A very simple method that flips the turn
@@ -8,5 +14,5 @@
  * @return int 
  */
 int alternateTurn(int *turnTracker){
-    return !turnTracker;
+    return !*turnTracker;
 }

@@ -3,4 +3,17 @@ Group Members:
 - Slayter Teal
 - Jackson Wildman
 
-Compilation: gcc -Wall ./*.c -o a.out -ldt
+Please put all test*.c files into a "test" directory to allow for our compilation instructions to work.
+Our file structure is as follows:
+./"the application goes here"
+./test/"unit tests go here, i.e. test*.c files"
+
+Compilation: 
+// We're assuming you are in the main project directory for these instructions.
+To build entire app: gcc -Wall ./*.c -o a.out -ldt
+To build an individual test: gcc -Wall ./test/"name of test".c ./*.c -o a.out 
+
+To run POSIX message testing, run:
+- gcc POSIXtest.c -o POSIXtest -ldt
+- gcc POSIXtest0.c -o POSIXtest0 -ldt
+Note: The program has to be closed via <CTRL+c>, we used signal handling to close cleanly.

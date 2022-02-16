@@ -17,6 +17,6 @@ char *buildNextPlayerMsg(struct Player *player,
                         int *usedLength, 
                         char *randAlphabet, 
                         char *inputWord);
-
+int declareWinner(struct Player *player);
 
 #endif

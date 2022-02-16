@@ -1,17 +1,14 @@
 /**
- * @file main.c
- * @author slayter teal
+ * @file POSIXtest.c
+ * @author slayter teal (slayter.teal@okstate.edu)
  * @brief This is a testing bed for POSIX messaging. 
- * main.c is one process while, main0.c is meant to be
+ * POSIXtest.c is one process while, POSIXtest0.c is meant to be
  * a seperate process.
  * 
  * The goal is to send and recieve messages and use
  * the data that is shared.
  * 
- * I'll also be including notes and links to various things in 
- * seperate README.
- * 
- * Compile using gcc main.c -o main -lrt
+ * Compile using gcc POSIXtest.c -o POSIXtest -lrt
  */
 
 #include <stdio.h>
