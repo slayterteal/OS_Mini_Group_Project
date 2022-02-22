@@ -13,5 +13,6 @@ int isKnown(int inputNumber, char *inputword);
 char *generateWord(int inputFileNumber);
 char **addToUsed(char **usedWords, char *inputWord, int usedSize);
 void addToInput(int inputNumber, char *inputWord);
+void toLowerStr(char *inputWord, int inputSize);
 
 #endif
