@@ -16,8 +16,8 @@ void addToInput(int inputNumber, char* inputWord)
     FILE *inputFile;
     int tempNum = inputNumber;
     int numLength = 0;
-    char *fileName = malloc(20 * sizeof(char));
-    char *fileNum = malloc(10 * sizeof(char));
+    char *fileName = calloc(20, sizeof(char));
+    char *fileNum = calloc(10, sizeof(char));
 
     while (tempNum != 0) //determine amount of digits for string conversion
     {
@@ -25,10 +25,9 @@ void addToInput(int inputNumber, char* inputWord)
         numLength++;
     }
 
-    printf("LENGTH %i\n", numLength);
-
     if (inputNumber < 10) //conforms to naming convention in pdf
     {
+        printf("%s", fileName);
         strcat(fileName, "input_0");
         *(fileNum) = inputNumber + '0';
     }

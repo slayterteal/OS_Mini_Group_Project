@@ -17,7 +17,7 @@ int isKnown(int inputNumber, char *inputWord)
     FILE *inputFile;
     int tempNum = inputNumber;
     int numLength = 0;
-    char *fileName = malloc(20 * sizeof(char));
+    char *fileName = malloc(20 * sizeof(char)); //if you have problems with the filename, change these two to calloc
     char *fileNum = malloc(10 * sizeof(char));
 
     while (tempNum != 0) //determine amount of digits for string conversion

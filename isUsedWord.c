@@ -17,7 +17,7 @@ int isUsedWord(char *inputWord, char **usedWords, int usedLength)
 {
     for (int i = 0; i < usedLength; i++)
     {
-        if (strcmp(inputWord, *usedWords) == 0)
+        if (strcmp(inputWord, *(usedWords + i)) == 0)
         {
             return 1;
         }
