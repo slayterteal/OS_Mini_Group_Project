@@ -18,5 +18,8 @@ char *buildNextPlayerMsg(struct Player *player,
                         char *randAlphabet, 
                         char *inputWord);
 int declareWinner(struct Player *player);
+void singleplayer(struct Player *player);
+char *selectInputTxt();
+void writeScoreBoard(struct Player *winner);
 
 #endif

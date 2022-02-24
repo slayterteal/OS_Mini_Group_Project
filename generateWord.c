@@ -5,7 +5,7 @@
 #include <time.h>
 
 /**
- * @brief //use this method to make a computer player 
+ * @brief use this method to make a computer player 
  * grab a word from chosen input_x.txt. 
  * returns a random word from the chosen text file
  * 
