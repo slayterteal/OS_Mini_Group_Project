@@ -14,5 +14,6 @@ char *generateWord(int inputFileNumber);
 char **addToUsed(char **usedWords, char *inputWord, int usedSize);
 void addToInput(int inputNumber, char *inputWord);
 void toLowerStr(char *inputWord, int inputSize);
+char *getRandomAlphabet(char *input_txt);
 
 #endif

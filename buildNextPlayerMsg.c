@@ -19,11 +19,23 @@ in successive order.
 #include <string.h>
 #include <stdlib.h>
 
+/**
+ * @brief builds a message (string) for the server to send
+ * to the client. Should not matter which turn the game is on.
+ * 
+ * @param player 
+ * @param usedWords 
+ * @param usedLength 
+ * @param randAlphabet 
+ * @param inputWord 
+ * @return char* 
+ */
 char *buildNextPlayerMsg(struct Player *player, 
                         char **usedWords,
                         int *usedLength,
                         char *randAlphabet, 
                         char *inputWord){
+    
     // Total size of the message to be sent.(in bytes)
     int sizeof_message = sizeof(usedWords) 
                          + sizeof(randAlphabet) 
