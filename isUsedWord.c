@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "WordServices.h"
 
 /**
  * @brief //determine if word has been used already, 

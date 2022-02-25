@@ -1,7 +1,7 @@
 // Jackson Wildman
 #include "WordServices.h"
 #include <string.h>
-#include "toLowerStr.c"
+#include <stdlib.h>
 
 /**
  * @brief runs all checks to see if input word is in 
@@ -12,28 +12,27 @@
  * 
  * @param inputWord 
  * @param usedWords 
- * @param inputFileNumber 
+ * @param inputFileName
  * @return int 
  */
-int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize, int inputFileNumber)
-{
+int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize, char *inputFileName){
     char *lowerWord = toLowerStr(inputWord, inputSize);
 
-    if (inputSize < 1) //pass
+    if (strlen(inputWord) <= 1) // pass
     {
         return -2;
     }
 
-    if (!isValidDict(lowerWord)) //check if valid dictionary word
+    if (!isValidDict(lowerWord)) // check if valid dictionary word
     {
-        return 0; 
+        return 0; // invalid
     }
 
     if (isUsedWord(lowerWord, *usedWords, *usedSize)) //check if word has been used. if not
     {
         return -1;
     }
-    else 
+    else // add to array of used words
     {
         char **tempWords = addToUsed(*usedWords, lowerWord, *usedSize);
         *usedSize = *usedSize + 1;
@@ -50,11 +49,11 @@ int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize
         }
     }
     
-    if (!isKnown(inputFileNumber, lowerWord))
+    if (!isKnown(inputFileName, lowerWord))
     {
-        addToInput(inputFileNumber, lowerWord);
+        addToInput(inputFileName, lowerWord);
         return 1;
     }
 
-    return 1;
+    return 1; // valid
 }

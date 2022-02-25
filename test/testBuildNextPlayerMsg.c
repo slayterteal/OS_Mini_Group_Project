@@ -15,7 +15,6 @@ int main(){
     strcpy(usedWords[1], "World");
 
     char *randAlphabet = "ABCDE";
-    char *inputWord = "Fuzz";
 
     int usedLength = 2;
     test_player->player_score = 4;
@@ -23,8 +22,7 @@ int main(){
                         test_player, 
                         usedWords,
                         &usedLength,  
-                        randAlphabet, 
-                        inputWord);
+                        randAlphabet);
 
     printf("Test Msg: \n %s", test_msg);
 

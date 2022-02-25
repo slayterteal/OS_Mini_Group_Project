@@ -16,7 +16,7 @@ void writeScoreBoard(struct Player *winner) //takes a player, the number of play
 {
     FILE *scoreboard;
 
-    if (scoreboard = fopen("scoreboard.txt", "r")) //if file doesn't exist, make it. if it does, append it.
+    if ((scoreboard = fopen("scoreboard.txt", "r"))) //if file doesn't exist, make it. if it does, append it.
     {
         scoreboard = fopen("scoreboard.txt", "a");
     }
