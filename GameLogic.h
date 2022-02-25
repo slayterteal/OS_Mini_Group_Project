@@ -12,11 +12,7 @@
 
 int calculateScore(int validBit, char *word);
 int alternateTurn(int *turnTracker);
-char *buildNextPlayerMsg(struct Player *player, 
-                        char **usedWords,
-                        int *usedLength, 
-                        char *randAlphabet, 
-                        char *inputWord);
+char *buildNextPlayerMsg(struct Player *player, char **usedWords,int *usedLength, char *randAlphabet);
 int declareWinner(struct Player *player);
 void singleplayer(struct Player *player);
 char *selectInputTxt();

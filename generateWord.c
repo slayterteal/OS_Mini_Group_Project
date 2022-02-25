@@ -9,50 +9,51 @@
  * grab a word from chosen input_x.txt. 
  * returns a random word from the chosen text file
  * 
- * @param inputFileNumber 
+ * @param inputFile
  * @return char* 
  */
-char *generateWord(int inputFileNumber) 
+char *generateWord(char *inputFileName) 
 {
-    FILE *inputFile;
-    int tempNum = inputFileNumber;
-    int numLength = 0;
-    char *fileName = malloc(20 * sizeof(char));
-    char *fileNum = malloc(10 * sizeof(char));
+    
+    // int tempNum = inputFileNumber;
+    // int numLength = 0;
+    // char *fileName = malloc(20 * sizeof(char));
+    // char *fileNum = malloc(10 * sizeof(char));
 
-    while (tempNum != 0) //determine amount of digits for string conversion
-    {
-        tempNum /= 10;
-        numLength++;
-    }
+    // while (tempNum != 0) //determine amount of digits for string conversion
+    // {
+    //     tempNum /= 10;
+    //     numLength++;
+    // }
 
-    if (inputFileNumber < 10) //conforms to naming convention in pdf
-    {
-        strcat(fileName, "input_0");
-        *(fileNum) = inputFileNumber + '0';
-    }
-    else //pull out all digits of input int to stick into filename otherwise, should work for all positive int
-    {
-        strcat(fileName, "input_");
+    // if (inputFileNumber < 10) //conforms to naming convention in pdf
+    // {
+    //     strcat(fileName, "input_0");
+    //     *(fileNum) = inputFileNumber + '0';
+    // }
+    // else //pull out all digits of input int to stick into filename otherwise, should work for all positive int
+    // {
+    //     strcat(fileName, "input_");
 
-        for (int i = 0; i < numLength; i++) //run for all digits
-        {
-            tempNum = inputFileNumber;
+    //     for (int i = 0; i < numLength; i++) //run for all digits
+    //     {
+    //         tempNum = inputFileNumber;
             
-            for (int j = 0; j < numLength - i - 1; j++) //pull out leftmost - i digit
-            {
-                tempNum /= 10;
-            }
+    //         for (int j = 0; j < numLength - i - 1; j++) //pull out leftmost - i digit
+    //         {
+    //             tempNum /= 10;
+    //         }
 
-            *(fileNum + i) = tempNum % 10 + '0'; //easy int to char, thank you ascii
-        }
-    }
+    //         *(fileNum + i) = tempNum % 10 + '0'; //easy int to char, thank you ascii
+    //     }
+    // }
 
-    *(fileNum + numLength) = '\0'; //ensure no newline in num
-    strcat(fileName, fileNum);
-    strcat(fileName, ".txt");
+    // *(fileNum + numLength) = '\0'; //ensure no newline in num
+    // strcat(fileName, fileNum);
+    // strcat(fileName, ".txt");
 
-    inputFile = fopen(fileName, "r"); //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
+    FILE *inputFile;
+    inputFile = fopen(inputFileName, "r"); //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
 
     char *currentLine = malloc(20 * sizeof(char));
     int wordCount = -1;
@@ -73,8 +74,6 @@ char *generateWord(int inputFileNumber)
     {
         *(inputFileWords + i) = malloc(20 * sizeof(char));
     }
-
-    inputFile = fopen(fileName, "r"); //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
 
     fgets(currentLine, 20, inputFile);
     fgets(currentLine, 20, inputFile);

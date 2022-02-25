@@ -19,6 +19,8 @@ in successive order.
 #include <string.h>
 #include <stdlib.h>
 
+char nextPlayerMsg[500];
+
 /**
  * @brief builds a message (string) for the server to send
  * to the client. Should not matter which turn the game is on.
@@ -27,33 +29,41 @@ in successive order.
  * @param usedWords 
  * @param usedLength 
  * @param randAlphabet 
- * @param inputWord 
  * @return char* 
  */
-char *buildNextPlayerMsg(struct Player *player, 
-                        char **usedWords,
-                        int *usedLength,
-                        char *randAlphabet, 
-                        char *inputWord){
-    
+char *buildNextPlayerMsg(struct Player *player, char **usedWords,int *usedLength, char *randAlphabet){
     // Total size of the message to be sent.(in bytes)
-    int sizeof_message = sizeof(usedWords) 
-                         + sizeof(randAlphabet) 
-                         + sizeof(inputWord) 
-                         + sizeof(int);
+    // int sizeof_message = sizeof(usedWords) + sizeof(randAlphabet) + sizeof(int);
     
-    // one string to rule them all
-    char *nextPlayerMsg = malloc(sizeof_message*sizeof(char));
+    // // one string to rule them all
+    // char *nextPlayerMsg = malloc(sizeof_message*sizeof(char));
+    memset(nextPlayerMsg, 0, strlen(nextPlayerMsg)); // reset the string at the beginning of the function.
 
     strcat(nextPlayerMsg, randAlphabet);
+    // strcat(nextPlayerMsg, "\n");
+    char temp[2];
+
+    temp[0] = player->opponent_score + '0';
+    strcat(nextPlayerMsg, "Player Score: ");
+    strcat(nextPlayerMsg, &temp[0]); 
     strcat(nextPlayerMsg, "\n");
-    char score = player->player_score + '0';
-    strcat(nextPlayerMsg, &score); 
+
+    temp[0] = player->player_score + '0';
+    strcat(nextPlayerMsg, "Opponent Score: ");
+    strcat(nextPlayerMsg, &temp[0]); 
     strcat(nextPlayerMsg, "\n");
-    for(int i = 0; i < *usedLength; i++){
-        strcat(nextPlayerMsg, usedWords[i]);
-        strcat(nextPlayerMsg, "\n");
-    } 
+
+    if (usedLength == 0){
+        // no previous word to display
+        // do nothing!
+    }
+    else {
+        // add all previous words to the next player message
+        for(int i = 0; i < *usedLength; i++){
+            strcat(nextPlayerMsg, usedWords[i]);
+            strcat(nextPlayerMsg, "\n");
+        } 
+    }
 
     return nextPlayerMsg;
 }

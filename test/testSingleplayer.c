@@ -17,12 +17,14 @@
 struct Player *generatePlayer();
 
 int main(){
-    // struct Player *player = generatePlayer();
+    struct Player *player = generatePlayer();
     
     // test get random alphabet
-    char *input_text = "input_01.txt";
-    char *randAlphabet = getRandomAlphabet(input_text);
-    printf("Random Alphabet = %s\n", randAlphabet);
+    // char *input_text = "input_01.txt";
+    // char *randAlphabet = getRandomAlphabet(input_text);
+    // printf("Random Alphabet = %s\n", randAlphabet);
+
+    singleplayer(player);
 
     return 0;
 }

@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include "WordServices.h"
 
 char *toLowerStr(char *inputStr, int inputSize)
 {
