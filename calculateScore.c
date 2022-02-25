@@ -44,6 +44,9 @@ int calculateScore(int validBit, char *word){
     else if(validBit == 0){ // the word is NOT valid, lose 1 point
         return -1;
     }
+    else if(validBit == -2){
+        return 0; // this is a pass, don't change the score.
+    }
     else{ // the word is a repreat, lost 2 points
         return -2;
     }

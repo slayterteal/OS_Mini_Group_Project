@@ -10,8 +10,13 @@
 #include "../GameLogic.h"
 
 int main(){
-    char *input_file = malloc(sizeof(char)+12);
+    char *input_file = malloc(sizeof(char)*12);
     input_file = selectInputTxt(input_file);
     printf("Input file is: %s \n", input_file); 
+
+    // make sure the file can be read!
+    FILE *test;
+    test = fopen(input_file, "r");
+    fclose(test);
     return 0;
 }

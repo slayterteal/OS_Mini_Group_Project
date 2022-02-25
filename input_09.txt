@@ -12,4 +12,6 @@ COED
 VIED
 VIDEO
 VOICE
-VOICED
+VOICEDdice
+extra
+word

@@ -12,4 +12,6 @@ READ
 REAR
 NERD
 REND
-ERRAND
+ERRANDdare
+generate
+word

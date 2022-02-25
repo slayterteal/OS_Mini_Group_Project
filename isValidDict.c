@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "WordServices.h"
 
 /**
  * @brief checks the dictionary.txt to conform if
