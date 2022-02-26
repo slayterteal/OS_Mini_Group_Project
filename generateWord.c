@@ -78,6 +78,7 @@ char *generateWord(char *inputFileName)
 
     fgets(currentLine, 20, inputFile);
     fgets(currentLine, 20, inputFile);
+    fgets(currentLine, 20, inputFile);
 
     for (int i = 0; i < wordCount; i++)
     {
@@ -95,6 +96,17 @@ char *generateWord(char *inputFileName)
 
     srand(time(0));
     int wordIndex = rand() % wordCount;
+    inputFileWords[wordIndex][strlen(inputFileWords[wordIndex]) - 1] = '\n';
+        
+    /*for (int i = 0; i < strlen(*(inputFileWords + wordIndex) - 1); i++)
+    {
+	    printf("%i\n", inputFileWords[wordIndex][i]);
+	    //inputFileWords[wordIndex][i + 1] = inputFileWords[wordIndex][i];
+    }
 
-    return *(inputFileWords + wordIndex);
+    char *fixedInput = calloc(strlen(inputFileWords[wordIndex]) + 1, sizeof(char));
+    //strcat(fixedInput, "\n");
+    strcat(fixedInput, inputFileWords[wordIndex]);
+    strcat(fixedInput, "\n");*/
+    return inputFileWords[wordIndex];
 }

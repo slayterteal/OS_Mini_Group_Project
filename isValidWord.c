@@ -18,7 +18,7 @@
 int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize, char *inputFileName){
     char *lowerWord = toLowerStr(inputWord, inputSize);
 
-    if (strlen(inputWord) <= 1) // pass
+    if (strlen(inputWord) < 1) // pass
     {
         return -2;
     }

@@ -29,14 +29,15 @@ int isValidDict(char *inputWord)
 	//printf("%s", dictWord); 						   
 	char *lowerDict = toLowerStr(dictWord, strlen(dictWord));
 
-	/*if (lowerDict[0] == inputWord[0])
+	/*if (lowerDict[0] == inputWord[0] && lowerDict[1] == inputWord[1])
 	{
+		printf("%s",lowerDict);
         for (int i = 0; i < strlen(lowerDict); i++)
 	{
 		printf("%i\n", lowerDict[i]);
 		printf("%i\n", aInput[i]);
         }
-        lowerDict[strlen(lowerDict) - 1] = '\0';
+        //lowerDict[strlen(lowerDict) - 1] = '\0';
 		printf("%s%s", aInput, lowerDict);
 		printf("%i, %i, %i", strcmp(aInput, lowerDict), strlen(aInput), strlen(lowerDict));
 	}*/
