@@ -67,7 +67,8 @@ char *generateWord(char *inputFileName)
     }
 
     fclose(inputFile);
-
+    
+    inputFile = fopen(inputFileName, "r"); //this block pretty much just exists for testing. shouldnt have to hit that else in the real game
     char **inputFileWords = malloc(wordCount * sizeof(char*));
 
     for (int i = 0; i < wordCount; i++)
@@ -81,6 +82,7 @@ char *generateWord(char *inputFileName)
     for (int i = 0; i < wordCount; i++)
     {
         fgets(currentLine, 20, inputFile);
+	printf("%s",currentLine);
         strcpy(*(inputFileWords + i), currentLine);
     }
 

@@ -52,7 +52,6 @@ int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize
     if (!isKnown(inputFileName, lowerWord))
     {
         addToInput(inputFileName, lowerWord);
-        return 1;
     }
 
     return 1; // valid
