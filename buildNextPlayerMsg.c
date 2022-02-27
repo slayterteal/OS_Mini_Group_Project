@@ -21,7 +21,7 @@ in successive order.
 
 #include <stdio.h>
 
-char nextPlayerMsg[500];
+char nextPlayerMsg[512];
 
 /**
  * @brief builds a message (string) for the server to send
@@ -44,11 +44,6 @@ char *buildNextPlayerMsg(struct Player *player, char **usedWords,int *usedLength
     strcat(nextPlayerMsg, randAlphabet);
     // strcat(nextPlayerMsg, "\n");
     char temp[2];
-
-    /*
-    Had some problems converting negative numbers to char values
-    so a if-else block checks and handles the int->char conversion.
-    */
     strcat(nextPlayerMsg, "Player Score: ");
     sprintf(temp, "%d", player->player_score);
     strcat(nextPlayerMsg, &temp[0]);

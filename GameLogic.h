@@ -1,8 +1,8 @@
 /**
  * @file GameLogic.h
  * @author Slayter Teal (slayter.teal@okstate.edu)
- * @brief A header file containing the various Game 
- * related functions.
+ * @brief Group D
+ * @date 2022-02-27
  * 
  */
 #ifndef GAMELOGIC_H_
@@ -17,5 +17,6 @@ int declareWinner(struct Player *player);
 void singleplayer(struct Player *player);
 char *selectInputTxt();
 void writeScoreBoard(struct Player *winner);
+void readScoreBoard();
 
 #endif
