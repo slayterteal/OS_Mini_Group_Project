@@ -62,7 +62,7 @@ void addToInput(char *inputFileName, char* inputWord)
         inputFile = fopen(inputFileName, "w");
     }
 
-    fprintf(inputFile, "%s\n", inputWord);
+    fprintf(inputFile, "%s", inputWord);
 
     fclose(inputFile);
 }
