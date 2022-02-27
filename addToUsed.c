@@ -19,11 +19,14 @@
  */
 char **addToUsed(char **usedWords, char* inputWord, int usedSize) 
 {
-    char **tempUsed = malloc(usedSize + sizeof(char));
+    printf("WHAT\n");
+    char **tempUsed = calloc((200 * usedSize) + (200 * sizeof(char)), sizeof(char));
+    printf("WHY\n");
 
     for (int i = 0; i < usedSize + 1; i++)
     {
-        *(tempUsed + i) = malloc(sizeof(*usedWords));
+        //printf("%s", *(tempUsed + i));
+        *(tempUsed + i) = malloc(100 * sizeof(char));
     }
 
     for (int i = 0; i < usedSize; i++)

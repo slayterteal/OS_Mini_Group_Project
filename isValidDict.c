@@ -42,10 +42,11 @@ int isValidDict(char *inputWord)
 		printf("%i, %i, %i", strcmp(aInput, lowerDict), strlen(aInput), strlen(lowerDict));
 	}*/
 
-        if(lowerDict[strlen(lowerDict) - 1] == '\n')
-	{
+
+        if (lowerDict[strlen(lowerDict) - 1] == '\n')
+        {
         	lowerDict[strlen(lowerDict) - 1] = '\0';
-	}
+        }
         if (strcmp(aInput, lowerDict) == 0)
         {
             return 1;
