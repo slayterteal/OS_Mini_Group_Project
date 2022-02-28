@@ -1,5 +1,5 @@
 /**
- * @file POSIXtest.c
+ * @file POSIXtest0.c
  * @author slayter teal (slayter.teal@okstate.edu)
  * @brief This is a testing bed for POSIX messaging. 
  * POSIXtest.c is one process while, POSIXtest0.c is meant to be
@@ -8,99 +8,88 @@
  * The goal is to send and recieve messages and use
  * the data that is shared.
  * 
- * Compile using gcc POSIXtest.c -o POSIXtest -lrt
+ * Compile using gcc ./test/POSIXtest.c -o POSIXtest.out -lrt
  */
 
 #include <stdio.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <mqueue.h> // message queue library
 #include <signal.h> // cleanly handle CTRL+c
+#include <string.h>
 
-#define MAX_MSG_SIZE
+#define MAX_MSG_SIZE 512
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE+10
+#define PROCESS_QUEUE_NAME "/q"
 
-mqd_t queue_send, queue_read;
-char *buffer; // dynamic buffer array
+// message queue descriptors
+mqd_t word_process;
+mqd_t read_line;
 
-void INThandler(int);
+// client pid
+char *client_pid;
+
+// dynamic buffer array
+char *buffer; 
+
+void exitHandler(int sig){
+    printf("Cleanly exiting.\n");
+    free(buffer);
+    mq_close(read_line);
+    mq_unlink(client_pid);
+    mq_close(word_process);
+    exit(1);
+}
+
 
 /*
 Note that both mains need to be able to both, send and receive
 messages.
-
-Note that main/main0 are identical (accept for the data sent),
-this is intentional, as all client instances will essentially be identical
-as well. 
 */
 int main(){
-    signal(SIGINT, INThandler);
-    // Sending "Hello" through a POSIX message queue.
-    // the name should be dynamic in our project
-    queue_send = mq_open("/m", O_CREAT | O_EXCL | O_WRONLY,  0600, NULL);
+    signal(SIGINT, exitHandler);
+    char message[256];
+    // get process pid
+    client_pid = malloc(sizeof(char)*32);
+    sprintf(client_pid, "/%d", getpid());
+    printf("pid: %s\n", client_pid);
 
-    // check if creation was successful
-    if (queue_send == -1){
-        printf("Queue creation failed :( \n");
-        exit(1);
+    strcpy(message, client_pid);
+    strcat(message, "\n");
+    strcat(message, "hello");
+    strcat(message, "\n");
+
+    // set read_line attr
+    struct mq_attr attr;
+    attr.mq_flags = 0;
+    attr.mq_maxmsg = 10;
+    attr.mq_msgsize = MAX_MSG_SIZE;
+    attr.mq_curmsgs = 0;
+
+    // create and open read_line
+    read_line = mq_open(client_pid, O_CREAT | O_RDONLY,  0660, &attr);
+
+    // send message to word_processing ================================================== 
+    while((word_process = mq_open(PROCESS_QUEUE_NAME, O_WRONLY)) == -1){
+        printf("Cannot open msg_process queue!\n");
+        continue;
     }
-
-    char *buffer; // buffer array
-    unsigned int priority = 0;
-    char *message = "Hello";
-    // run constantly. 
-    while(1){
-        
-        /*
-        Check of the opponent has opened it's queue.
-        */
-        if((queue_read = mq_open("/m0", O_RDONLY)) == -1){
-            printf("No opponent queue open! \n");
-            continue;
-        }
-
-        /*
-        We don't want to start sending messages into our queue until we know an 
-        opponent is available to read them. If 'queue_read' is valid, then we know
-        an opponent is looking at the queue, so we can send a message.
-        */
-        mq_send(queue_send, message, sizeof(message)+1, 10);
-
-        // receive messages ==============================
-        // get message_queue attributes
-        struct mq_attr attr;
-        mq_getattr(queue_read, &attr);
-
-        buffer = calloc(attr.mq_msgsize, 1);
-        if(buffer == NULL){
-            printf("Something has gone wrong... \n");
-            free(buffer);
-            mq_close(queue_send);
-            mq_close(queue_read);
-            exit(1);
-        }
-
-        if((mq_receive(queue_read, buffer, attr.mq_msgsize, &priority)) == -1){
+    
+    mq_send(word_process, message, sizeof(message)+1, 0);
+    
+    // receive messages =================================================================
+    char in_buffer[MSG_BUFFER_SIZE];
+    if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){
             printf("Failed to receive message... \n");
-        }
-        else {
-            printf("%s \n", buffer);
-        }
+        }  
+    printf("%s \n", in_buffer);
 
-        // reset buffer
-        buffer = NULL;
-    }
-
-    free(buffer);
-    mq_close(queue_send);
-    mq_close(queue_read);
+    mq_close(read_line);
+    mq_close(word_process);
+    mq_unlink(client_pid);
 
     return 0;
-}
-
-void INThandler(int sig){
-    printf("Cleanly exiting.");
-    free(buffer);
-    mq_close(queue_send);
-    mq_close(queue_read);
-    exit(1);
 }

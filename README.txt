@@ -24,7 +24,7 @@ Compilation: ===============================================
 // We're assuming you are in the main project directory for these instructions.
 // Server.c and client.c should be in Their own folder!
 Build Client (from main project directory): gcc ../client/client.c -o client.out
-Build Server (from main project directory): gcc -Wall ./server/server.c ./*.c -o a.out -ldt
+Build Server (from main project directory): gcc -Wall ./server/server.c ./*.c -o server.out -ldt
 
 
 

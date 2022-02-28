@@ -30,7 +30,7 @@ int isValidWord(char *inputWord, int inputSize, char ***usedWords, int *usedSize
         return -2;
     }
 
-    printf("one\n");
+    // make word processing call 
 
     if (!isValidDict(lowerWord)) // check if valid dictionary word
     {
