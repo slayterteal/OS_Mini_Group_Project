@@ -41,7 +41,9 @@ int main(){
     }
 
     unsigned int priority = 0;
-    char *message = "World";
+    //int menu_option = isValidDict("test");
+    //char convert_ret = menu_option + '0';
+    char *message = "hello";
     // run constantly. 
     while(1){
         

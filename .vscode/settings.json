@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdlib.h": "c",
-        "netdb.h": "c"
+        "netdb.h": "c",
+        "fcntl.h": "c",
+        "gamelogic.h": "c"
     }
 }

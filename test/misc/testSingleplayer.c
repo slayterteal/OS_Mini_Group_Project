@@ -1,10 +1,12 @@
 /**
  * @file testSingleplayer.c
  * @author slayter teal (slayter.teal@okstate.edu)
- * @brief test code for the singleplayer functionality
+ * @brief Group D
+ * @date 2022-27-02
+ * test code for the singleplayer functionality
  */
 
-// gcc -Wall ./test/testSingleplayer.c ./*.c -o a.out 
+// gcc -Wall ./test/misc/testSingleplayer.c ./*.c -o a.out 
 
 #include "../GameLogic.h"
 #include <stdlib.h>

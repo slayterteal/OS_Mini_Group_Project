@@ -1,4 +1,10 @@
-// Jackson Wildman
+/**
+ * @file isValidWord.c
+ * @author Jackson Wildman (jawildm@okstate.edu)
+ * @brief Group D
+ * @date 2022-27-02
+ * 
+ */
 #include "WordServices.h"
 #include <string.h>
 #include <stdlib.h>

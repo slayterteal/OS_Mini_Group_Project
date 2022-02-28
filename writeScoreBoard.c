@@ -1,6 +1,8 @@
 /**
  * @file writeScoreBoard.c
- * @author Jackson Wildman
+ * @author Jackson Wildman (jawildm@okstate.edu)
+ * @brief Group D
+ * @date 2022-27-02
  * 
  */
 #include "GameLogic.h"
@@ -9,20 +11,23 @@
 
 /**
  * @brief Writes a player to the scoreboard.
+ * takes a player, the number of players and rounds,
+ * the array of final scores, and an int acting as a boolean
+ * to write the winner to the scoreboard.
  * 
  * @param winner 
  */
-void writeScoreBoard(struct Player *winner) //takes a player, the number of players and rounds, the array of final scores, and an int acting as a boolean to write the winner to the scoreboard.
+void writeScoreBoard(struct Player *winner, char *scoreFile) 
 {
     FILE *scoreboard;
 
-    if ((scoreboard = fopen("scoreboard.txt", "r"))) //if file doesn't exist, make it. if it does, append it.
+    if ((scoreboard = fopen(scoreFile, "r"))) //if file doesn't exist, make it. if it does, append it.
     {
-        scoreboard = fopen("scoreboard.txt", "a");
+        scoreboard = fopen(scoreFile, "a");
     }
     else
     {
-        scoreboard = fopen("scoreboard.txt", "w");
+        scoreboard = fopen(scoreFile, "w");
         fprintf(scoreboard, "First Name  Last Name    Country  Score   W/L   # Words Found   # Words Added to Dict\n");
     }
     

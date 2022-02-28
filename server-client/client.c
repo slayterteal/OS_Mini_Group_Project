@@ -4,7 +4,7 @@
  * @brief Group D
  * @date 2022-02-27
  * 
- * gcc client.c -o client.out
+ * gcc ./server-client/client.c -o client.out
  * 
  * Reference:
  * https://www.geeksforgeeks.org/tcp-server-client-implementation-in-c/
@@ -16,17 +16,15 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#define PORT 8888
+#define PORT 8889
 
 
-void error(const char *msg)
-{
+void error(const char *msg) {
     perror(msg);
     exit(0);
 }
 
-void communicating(int sockfd)
-{
+void communicating(int sockfd) {
     char msg_buffer[512]; // buffer for msg send/receive
     int n;
     while(1) {
@@ -42,15 +40,14 @@ void communicating(int sockfd)
 
         // take in user input, send to server ==========================
         memset(msg_buffer, 0, sizeof(msg_buffer));
-        printf("Type your message: ");
+        printf("\n");
         n = 0;
         while ((msg_buffer[n++] = getchar()) != '\n');
         write(sockfd, msg_buffer, sizeof(msg_buffer));
     }
 }
 
-int main()
-{
+int main() {
     // connecting to a server =================================================
     int sockfd;
     struct sockaddr_in server_address;

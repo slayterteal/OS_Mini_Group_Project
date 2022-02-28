@@ -1,7 +1,8 @@
 /**
  * @file buildNextPlayerMsg.c
  * @author Slayter Teal (slayter.teal@okstate.edu)
- * 
+ * @brief Group D
+ * @date 2022-27-02
  */
 
 /*

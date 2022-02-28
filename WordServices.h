@@ -1,7 +1,10 @@
-/* Slayter Teal
-A file containing access to various helper methods 
-related to checking words and other... word related things.
-*/
+/**
+ * @file WordServices.h
+ * @author Jackson Wildman (jawildm@okstate.edu)
+ * @brief Group D
+ * @date 2022-02-27
+ * 
+ */
 
 #ifndef WORDSERVICES_H_
 #define WORDSERVICES_H_

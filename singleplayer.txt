@@ -1,0 +1,10 @@
+First Name  Last Name    Country  Score   W/L   # Words Found   # Words Added to Dict
+       tes        tes        tes      0     W               0                       0
+       tes        tes        tes      0     W               0                       0
+ adsf asdf        sdf      caond      1     W               1                       0
+     hello       test        ing      1     W               1                       0
+      test        ing       this     -4     L               0                       0
+      test        ing      hello     -4     L               0                       0
+      test        ing        now     -4     L               0                       0
+      test         ,e        yes     -4     L               0                       0
+       tes        tes        tes     -1     W               1                       0

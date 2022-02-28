@@ -1,12 +1,26 @@
 /**
  * @file singleplayer.c
  * @author Slayter Teal (slayter.teal@okstate.edu)
+ * @brief Group D
+ * @date 2022-02-27
+ *
+ * Reference: https://www.geeksforgeeks.org/named-pipe-fifo-example-c-program/
  */
-
+#include <stdio.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include "GameLogic.h"
 #include "WordServices.h"
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 // TODO: Remove
 #include <stdio.h>
@@ -20,8 +34,7 @@ struct Player *generateComputer();
   * @param socket
   * @param player 
   */
- //TODO: ADD SOCKET AS A INPUT! UPDATE GAMELOGIC.H
- void singleplayer(struct Player *player){
+ void singleplayer(struct Player *player, int connfd){
     // set up the game, define game constants =============
     struct Player *computer = generateComputer();
     char *input_text = malloc(sizeof(char)*12);
@@ -34,61 +47,75 @@ struct Player *generateComputer();
     int validBit = 0;
     // get random alphabet from input_xx.txt
     char *randAlphabet = getRandomAlphabet(input_text);
+
+    //ADDED++++++++++++++++++
+    // int fd;
+    // char * named_pipe = "/tmp/pipe"; //create new named pipe with w/r permissions
+    // mkfifo(named_pipe, 0666);
+
+    // char valid_bit[1];
+    // char input[20];
+    //ADDED++++++++++++++++++
     
     // run the game ======================================
-    //TODO: REMOVE
-    char user_input[100];
+    char *user_input = malloc(sizeof(char)*512);
     while(num_of_passes != 2){
         if(turn_counter == 0){ // player's turn
             player->opponent_score = computer->player_score;
+            // if (user_input != NULL) memset(user_input, 0, sizeof(user_input));
             char *nextPlayerMsg = buildNextPlayerMsg(player, usedWords, &usedLength, randAlphabet);
-            
-            memset(user_input, 0, sizeof(user_input));
             // wait for user input
-            /* TODO: replace with socket logic! <--->
-            This code should send the nextPlayerMsg down the pipe,
-            for display on the client side terminal, then wait for input.
-            Input would be stored in user_input, memset should probably remain,
-            it clears the string.
-            */
-            printf("%s", nextPlayerMsg);
-            printf("Enter valid word: ");
-            fgets(user_input, sizeof(user_input), stdin);
+           strcpy(user_input, communication(connfd, strcat(nextPlayerMsg, "Enter a word: "), user_input));
 
             // determine the validity of the score
             // update the player's score count.
-            validBit = isValidWord(user_input, sizeof(user_input), &usedWords, &usedLength, input_text);
-            player->player_score = (int)(player->player_score + calculateScore(validBit, user_input));
 
-            /*
-            The player can only leave their turn by entering a 
-            valid word, or passing.
-            */
-            if(validBit == 1){ // word is valid
-                // alternate Turn
-                player->number_of_words_found++;
-                turn_counter = alternateTurn(&turn_counter);
-            }
-            else if(validBit == 0){ // word is invalid, try again
-                /* TODO: replace with socket logic! <--->
-                Send the string below through the socket.
-                The code above the if statement should be usable as the
-                turn hasn't changed.
+            
+            // fd = open(named_pipe, O_WRONLY); //take user input to pass to word processing in separate process
+
+            // write(fd, user_input, strlen(user_input)+1); //write user input to named pipe
+            // close(fd);
+
+            // fd = open(named_pipe, O_RDONLY); //wait for return data from word services
+            // read(fd, valid_bit, sizeof(valid_bit));
+            // printf("Valid: %c\n", valid_bit[0]); //for testing
+            // close(fd);
+            
+
+            while(1){
+                validBit = isValidWord(user_input, sizeof(user_input), &usedWords, &usedLength, input_text);
+                // validBit = valid_bit[0] - '0';
+                // printf("VALID: %i", validBit);
+                player->player_score = (int)(player->player_score + calculateScore(validBit, user_input));
+                /*
+                The player can only leave their turn by entering a 
+                valid word, or passing.
                 */
-                printf("Word was INVALID, Try again.\n");           
+                if(validBit == 1){ // word is valid
+                    // alternate Turn
+                    player->number_of_words_found++;
+                    turn_counter = alternateTurn(&turn_counter);
+                    break;
+                }
+                else if(validBit == 0){ // word is invalid, try again
+                    strcpy(user_input, communication(connfd,"Word was INVALID, Try again.", user_input));
+                    printf("Word was INVALID, Try again.");  
+                    //fd = open(named_pipe, O_RDONLY); //wait for return data from word services
+                    //read(fd, valid_bit, sizeof(valid_bit));
+                    //printf("Valid: %c\n", valid_bit[0]); //for testing
+                    //close(fd);      
+                }
+                else if(validBit == -1){ // word is a repeat, try again
+                    strcpy(user_input, communication(connfd,"Word was REPEAT, Try again.", user_input));
+                    printf("Word was a REPEAT, Try again."); 
+                }
+                else{ // player has passed
+                    num_of_passes++;
+                    turn_counter = alternateTurn(&turn_counter);
+                    break;
+                }
             }
-            else if(validBit == -1){ // word is a repeat, try again
-                /* TODO: replace with socket logic! <--->
-                Send the string below through the socket.
-                The code above the if statement should be usable as the
-                turn hasn't changed.
-                */
-                printf("Word was a REPEAT, Try again.\n"); 
-            }
-            else{ // player has passed
-                num_of_passes++;
-                turn_counter = alternateTurn(&turn_counter);
-            }
+            
         }
         else { // computer's turn
             char* word = generateWord(input_text);
@@ -112,13 +139,9 @@ struct Player *generateComputer();
             player->win_or_lose = "L";
             break;
     }
-    writeScoreBoard(player);
-    printf("\nGoodbye! \n");
-    // write to scoreboard
-    // "Would you like to read the scoreboard?"
-    // free all memory and exit the program.
+    writeScoreBoard(player, "singleplayer.txt");
+    readScoreBoard(connfd, "singleplayer.txt");
     free(computer);
-    free(player);
     free(input_text);
     free(randAlphabet);
 }

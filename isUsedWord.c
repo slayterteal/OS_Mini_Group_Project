@@ -1,4 +1,10 @@
-// Jackson Wildman
+/**
+ * @file isUsedWord.c
+ * @author Jackson Wildman (jawildm@okstate.edu)
+ * @brief Group D
+ * @date 2022-27-02
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -4,12 +4,14 @@
  * @brief Group D
  * @date 2022-02-27
  */
-#include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <unistd.h>
 #include "GameLogic.h"
 
-void readScoreBoard() //searches for a scoreboard file corresponding to a given number of players and rounds. prints the contents of the file.
+void readScoreBoard(int connfd, char *scoreFile) //searches for a scoreboard file corresponding to a given number of players and rounds. prints the contents of the file.
 {
     /*
     should be able to handle max of 120 player value sets, 
@@ -32,19 +34,19 @@ void readScoreBoard() //searches for a scoreboard file corresponding to a given 
     FILE *scoreboard;
 
 
-    scoreboard = fopen("scoreboard.txt", "r");
+    scoreboard = fopen(scoreFile, "r");
     printf("   "); //just changes the formatting for the 1:, 2:, etc
     
     for (int i = 0; i < 86; i++) //print first line for formatting
     {
         currentChar = fgetc(scoreboard);
-        printf("%c", currentChar);
+        send(connfd, &currentChar, strlen(&currentChar), 0);
     }
 
     while (currentChar != EOF) //read all values and sort by score
     {
-        int playerMatch = 0;
-        int printLine = 0;
+        // int playerMatch = 0;
+        // int printLine = 0;
 
         for (int i = 0; i < 86; i++)
         {
@@ -106,7 +108,10 @@ void readScoreBoard() //searches for a scoreboard file corresponding to a given 
     {
         if (i > 0) //prevents an issue where the last line in the file is read as whitespace and placed 1st
         {
-            printf("%i: %s", i, *(topPlayers + i));
+            // *(topPlayers + i)
+            // send the line from the scoreboard to the player
+            send(connfd, *(topPlayers + i), strlen(*(topPlayers + i)), 0);
         }
     }
+    return;
 }
