@@ -27,13 +27,21 @@ int isValidDict(char *inputWord)
     char *dictWord = malloc(50 * sizeof(char));
     char *aInput = malloc(50 * sizeof(char));
     strcat(aInput, inputWord);
-    aInput[strlen(aInput) - 1] = '\r';
+
+    //aInput[strlen(aInput) - 1] = '\r';
     while (!feof(dict)) //runs until valid or eof
     {
         fgets(dictWord, 50, dict);
         //*(dictWord + strlen(dictWord) - 2) = '\0'; //fixes newline from fgets
 	//printf("%s", dictWord); 						   
 	char *lowerDict = toLowerStr(dictWord, strlen(dictWord));
+    char *lowerInput = toLowerStr(aInput, strlen(aInput));
+    strcat(lowerInput, "\r");
+
+    /*for (int i = 0; i < strlen(lowerInput); i++)
+    {
+        printf("INPUT WORD: %c %i\n", lowerInput[i], lowerInput[i]);
+    }*/
 
 	/*if (lowerDict[0] == inputWord[0] && lowerDict[1] == inputWord[1])
 	{
@@ -53,7 +61,7 @@ int isValidDict(char *inputWord)
         {
         	lowerDict[strlen(lowerDict) - 1] = '\0';
         }
-        if (strcmp(aInput, lowerDict) == 0)
+        if (strcmp(lowerInput, lowerDict) == 0)
         {
             return 1;
         }

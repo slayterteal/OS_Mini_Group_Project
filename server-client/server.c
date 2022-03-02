@@ -17,6 +17,8 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <mqueue.h>
+#include <signal.h>
 #include "../GameLogic.h"
 #define PORT 8889
 
@@ -44,7 +46,7 @@ struct Player *createPlayer(int connfd, struct Player *player, char *client_resp
     return player;
 }
 
-void exitHandler(int sig){
+void exitHandlerTop(int sig){
     // wait for all processes to exit
     wait(NULL); // no effect for clients
     exit(1);
@@ -52,7 +54,7 @@ void exitHandler(int sig){
 
 int main() {
     // catch <CTRL+C> to clean nicely
-    signal(SIGINT, exitHandler);
+    signal(SIGINT, exitHandlerTop);
 
     // ignore when a client exits, prevents zombies!
     signal(SIGCHLD,SIG_IGN);
@@ -113,7 +115,7 @@ int main() {
                else if(menu_option == 3){
                    printf("Exit.\n");
                    free(player);
-                   exitHandler(0);
+                   exitHandlerTop(0);
                }
                else{ // invalid option
                     printf("\nInvalid Option, Try Again\n");
