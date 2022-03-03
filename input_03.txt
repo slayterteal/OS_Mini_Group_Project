@@ -15,6 +15,4 @@ BODY
 OBEY
 BUOY
 BODE
-BUOYEDdo
-word
-do
+BUOYED

@@ -1,6 +1,6 @@
 /**
- * @file wordMessaging.c
- * @author Slayter Teal (slayter.teal@okstate.edu), Jackson Wildman (jawildm@okstate.edu)
+ * @file generateWord.c
+ * @author Jackson Wildman (you@domain.com)
  * @brief Group D
  * @date 2022-02-27
  * 
@@ -15,7 +15,7 @@
 #include <signal.h> // cleanly handle CTRL+c
 #include <string.h>
 #include <unistd.h>
-#include "../WordServices.h"
+#include "WordServices.h"
 
 #define MAX_MSG_SIZE 512
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE+10
@@ -29,7 +29,7 @@
 mqd_t read_line, return_line;
 // char *buffer; // dynamic buffer array
 
-void exitHandler(int sig){
+/*void exitHandlerBackend(int sig){
     printf("Cleanly exiting.\n");
     // free(buffer);
     mq_close(return_line);
@@ -38,14 +38,14 @@ void exitHandler(int sig){
     mq_unlink(SCOREBOARD_QUEUE_NAME);
     mq_unlink(INPUT_TXT_QUEUE_NAME);
     exit(1);
-}
+}*/
 
 /*
 The purpose of this code is to have a fixed "read" line, and test
 dynamically sending messages based on what is received on the "read" line.
 */
-int main(){
-    signal(SIGINT, exitHandler);
+int wordMessaging(){
+    //signal(SIGINT, exitHandlerBackend);
     
     // set POSIX attributes
     struct mq_attr attr;
@@ -115,7 +115,7 @@ int main(){
                 // send messages =====================================================
                 if((return_line = mq_open(client_pid, O_WRONLY)) == -1){
                     printf("Cannot open msg_process queue!\n");
-                    exitHandler(0);
+                    return 0;
                 }
 
                 mq_send(return_line, return_msg, strlen(return_msg)+1, 0);
@@ -158,7 +158,7 @@ int main(){
             // send messages =====================================================
             if((return_line = mq_open(client_pid, O_WRONLY)) == -1){
                 printf("Cannot open msg_process queue!\n");
-                exitHandler(0);
+                return 0;
             }
 
             mq_send(return_line, return_msg, strlen(return_msg)+1, 0);
@@ -206,7 +206,7 @@ int main(){
         // send messages =====================================================
         if((return_line = mq_open(client_pid, O_WRONLY)) == -1){
             printf("Cannot open msg_process queue!\n");
-            exitHandler(0);
+            return 0;
         }
 
         mq_send(return_line, return_msg, strlen(return_msg)+1, 0);

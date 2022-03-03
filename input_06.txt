@@ -12,6 +12,5 @@ READ
 REAR
 NERD
 REND
-ERRANDdare
-generate
-word
+ERRAND
+den

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "WordServices.h"
 
 /**
  * @brief add word to selected input file. 
@@ -68,8 +69,8 @@ int isKnown(char *inputFileName, char *inputWord)
     {
         fgets(currentLine, 20, inputFile);
         *(currentLine + strlen(currentLine) - 1) = '\0'; //fixes newline from fgets
-
-        if (strcmp(currentLine, inputWord) == 0)
+        char *lowerLine = toLowerStr(currentLine, strlen(currentLine));
+        if (strcmp(lowerLine, inputWord) == 0)
         {
             return 1;
         }

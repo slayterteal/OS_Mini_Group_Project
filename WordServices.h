@@ -19,5 +19,6 @@ char **addToUsed(char **usedWords, char *inputWord, int usedSize);
 void addToInput(char *inputFileName, char *inputWord);
 char *toLowerStr(char *inputWord, int inputSize);
 char *getRandomAlphabet(char *input_txt);
+int wordMessaging();
 
 #endif

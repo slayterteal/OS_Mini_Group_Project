@@ -31,13 +31,13 @@ char **addToUsed(char **usedWords, char* inputWord, int usedSize)
 
     for (int i = 0; i < usedSize + 1; i++)
     {
-        //printf("%s", *(tempUsed + i));
         *(tempUsed + i) = malloc(100 * sizeof(char));
     }
 
     for (int i = 0; i < usedSize; i++)
     {
         strcpy(*(tempUsed + i), *(usedWords + i));
+        printf("AAAA: %s\n", *(tempUsed + i));
     }
     
     strcpy(*(tempUsed + usedSize), inputWord);

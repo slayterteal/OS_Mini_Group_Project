@@ -158,84 +158,93 @@ struct Player *generateComputer();
                 strcat(message, user_input);
                 //strcat(message, "\n");
 
-                mq_send(word_process_dict, message, sizeof(message)+1, 0); //send msg to isValidDict fork
-    
-                // receive messages =================================================================
-                if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //read from isValidDict fork
-                        printf("Failed to receive message... \n");
-                }  
-
-                printf("RECEIVED DICT: %s \n", in_buffer); //returned from isValidDict fork
-                int validDict = in_buffer[0] - '0';
-
-                mq_send(word_process_scoreboard, message, sizeof(message)+1, 0); //send msg to scoreboard fork
-
-                if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //try to read from scoreboard fork
-                        printf("Failed to receive message... \n");
-                }  
-
-                printf("RECEIVED SCOREBOARD: %s \n", in_buffer); //received scoreboard val
-
-                strcpy(message, client_pid); //build message for input txt fork
-                strcat(message, "\n");
-                strcat(message, input_text);
-                strcat(message, "\n");
-                strcat(message, user_input);
-
-                mq_send(word_process_input_txt, message, sizeof(message)+1, 0); //send msg to input txt fork
-
-                if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //try to read from input txt fork
-                        printf("Failed to receive message... \n");
-                }  
-
-                printf("RECEIVED INPUT_TXT: %s \n", in_buffer); //return val from input txt fork
-
-                int inputValid = in_buffer[0] - '0';
-
-                if (inputValid && validDict)
+                if (strcmp(user_input, "\n") == 0) //pass
                 {
-                    validBit = 1;
+                    validBit = 2;
                 }
                 else
                 {
-                    validBit = 0;
+                    mq_send(word_process_dict, message, sizeof(message)+1, 0); //send msg to isValidDict fork
+        
+                    // receive messages =================================================================
+                    if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //read from isValidDict fork
+                            printf("Failed to receive message... \n");
+                    }  
+
+                    printf("RECEIVED DICT: %s \n", in_buffer); //returned from isValidDict fork
+                    int validDict = in_buffer[0] - '0';
+
+                    mq_send(word_process_scoreboard, message, sizeof(message)+1, 0); //send msg to scoreboard fork
+
+                    if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //try to read from scoreboard fork
+                            printf("Failed to receive message... \n");
+                    }  
+
+                    printf("RECEIVED SCOREBOARD: %s \n", in_buffer); //received scoreboard val
+
+                    strcpy(message, client_pid); //build message for input txt fork
+                    strcat(message, "\n");
+                    strcat(message, input_text);
+                    strcat(message, "\n");
+                    strcat(message, user_input);
+
+                    mq_send(word_process_input_txt, message, sizeof(message)+1, 0); //send msg to input txt fork
+
+                    if((mq_receive(read_line, in_buffer, MSG_BUFFER_SIZE, NULL)) == -1){ //try to read from input txt fork
+                            printf("Failed to receive message... \n");
+                    }  
+
+                    printf("RECEIVED INPUT_TXT: %s \n", in_buffer); //return val from input txt fork
+
+                    int inputValid = in_buffer[0] - '0';
+
+                    if (inputValid && validDict)
+                    {
+                        validBit = 1;
+                    }
+                    else
+                    {
+                        validBit = 0;
+                    }
+                    
+                    //WIP++++++
+                    /*printf("USEDLENGTH %i\n", usedLength);
+
+                    for (int i = 0; i < usedLength; i++)
+                    {
+                        printf("USED: %s\n", usedWords[i]);
+                    }
+
+                    if (isUsedWord(user_input, usedWords, usedLength)) //denotes repeat word
+                    {
+                        validBit = -1;
+                    }*/
+                    //WIP++++++
+
+                    /*for (int i = 0; i < strlen(in_buffer); i++)
+                    {
+                        printf("%c", in_buffer[i]);
+                    }*/
+                    
+                    //validBit = isValidWord(user_input, sizeof(user_input), &usedWords, &usedLength, input_text);
+                    
+
+                    /*strcpy(message, client_pid);
+                    strcat(message, "\n");
+                    strcat(message, user_input);
+                    //strcat(message, "\n");
+
+                    mq_send(word_process, message, sizeof(message)+1, 0);*/
+
+                    // printf("VALID: %i", validBit);
+
+                    player->player_score = (int)(player->player_score + calculateScore(validBit, user_input));
+                    /*
+                    The player can only leave their turn by entering a 
+                    valid word, or passing.
+                    */
                 }
                 
-                //WIP++++++
-                /*printf("USEDLENGTH %i\n", usedLength);
-
-                for (int i = 0; i < usedLength; i++)
-                {
-                    printf("USED: %s\n", usedWords[i]);
-                }
-
-                if (isUsedWord(user_input, usedWords, usedLength)) //denotes repeat word
-                {
-                    validBit = -1;
-                }*/
-                //WIP++++++
-
-                /*for (int i = 0; i < strlen(in_buffer); i++)
-                {
-                    printf("%c", in_buffer[i]);
-                }*/
-                
-                //validBit = isValidWord(user_input, sizeof(user_input), &usedWords, &usedLength, input_text);
-                
-
-                /*strcpy(message, client_pid);
-                strcat(message, "\n");
-                strcat(message, user_input);
-                //strcat(message, "\n");
-
-                mq_send(word_process, message, sizeof(message)+1, 0);*/
-
-                // printf("VALID: %i", validBit);
-                player->player_score = (int)(player->player_score + calculateScore(validBit, user_input));
-                /*
-                The player can only leave their turn by entering a 
-                valid word, or passing.
-                */
                 if(validBit == 1){ // word is valid
                     // alternate Turn
                     player->number_of_words_found++;

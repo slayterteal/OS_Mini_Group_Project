@@ -11,8 +11,4 @@ CAST
 SUIT
 CACTI
 CACTUS
-CAUSTICword
-test
-what
-why
-how
+CAUSTIC
