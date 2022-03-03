@@ -35,7 +35,7 @@ char *client_pid;
 // dynamic buffer array
 char *buffer; 
 
-void exitHandler(int sig){
+void exitHandlerBackend(int sig){
     printf("Cleanly exiting.\n");
     free(buffer);
     mq_close(read_line);
@@ -50,7 +50,7 @@ Note that both mains need to be able to both, send and receive
 messages.
 */
 int main(){
-    signal(SIGINT, exitHandler);
+    signal(SIGINT, exitHandlerBackend);
     char message[256];
     // get process pid
     client_pid = malloc(sizeof(char)*32);
